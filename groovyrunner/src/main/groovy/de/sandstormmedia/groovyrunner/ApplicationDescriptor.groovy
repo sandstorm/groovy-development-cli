@@ -101,11 +101,8 @@ abstract class ApplicationDescriptor extends Script {
         println "================="
         println "If no command is entered the previous command is executed again."
         println "If a command is executed it terminates the previous command."
-        println "For example"
-        println "> run           starts exply"
-        println "> run           restarts exply"
-        println ">               again restarts exply"
-        println "> help          terminates exply and shows help"
+        println ""
+        println "> help          shows help"
         println ""
     }
 
