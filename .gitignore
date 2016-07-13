@@ -5,3 +5,4 @@ groovyrunner/build/
 dependency-injection/dependency-injection.iml
 groovy-development-cli.iml
 groovyrunner/groovyrunner.iml
+build/
