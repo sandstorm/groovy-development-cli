@@ -16,31 +16,31 @@ import org.codehaus.groovy.transform.GroovyASTTransformation
  *
  * ObjectManager.instance.registerSingleton(this.name)
  */
-@GroovyASTTransformation(phase=CompilePhase.SEMANTIC_ANALYSIS)
+@GroovyASTTransformation(phase = CompilePhase.SEMANTIC_ANALYSIS)
 public class ScopeSingletonTransformation implements ASTTransformation {
 
-	public void visit(ASTNode[] nodes, SourceUnit sourceUnit) {
-		AnnotationNode annotationNode = nodes[0]
-		ClassNode classNode = nodes[1]
+    public void visit(ASTNode[] nodes, SourceUnit sourceUnit) {
+        AnnotationNode annotationNode = nodes[0]
+        ClassNode classNode = nodes[1]
 
 
-		Statement initializer = new AstBuilder().buildFromSpec {
-			expression {
-				methodCall {
-					property {
-						classExpression ObjectManager
-						constant "instance"
-					}
-					constant "registerSingleton"
-					argumentList {
-						property {
-							variable "this"
-							constant "name"
-						}
-					}
-				}
-			}
-		}.head()
-		classNode.addStaticInitializerStatements([initializer], false)
-	}
+        Statement initializer = new AstBuilder().buildFromSpec {
+            expression {
+                methodCall {
+                    property {
+                        classExpression ObjectManager
+                        constant "instance"
+                    }
+                    constant "registerSingleton"
+                    argumentList {
+                        property {
+                            variable "this"
+                            constant "name"
+                        }
+                    }
+                }
+            }
+        }.head()
+        classNode.addStaticInitializerStatements([initializer], false)
+    }
 }

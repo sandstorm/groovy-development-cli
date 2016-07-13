@@ -5,7 +5,5 @@ import de.sandstormmedia.dependencyinjection.ScopeSingleton
 
 @ScopeSingleton
 class CircularSingletonB {
-
-	@Inject
-	CircularSingletonA a
+    @Inject CircularSingletonA a
 }
