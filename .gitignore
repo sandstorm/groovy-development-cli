@@ -1,0 +1,3 @@
+.gradle/
+dependency-injection/build/
+groovyrunner/build/
