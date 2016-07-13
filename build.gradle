@@ -1,35 +1,90 @@
+plugins {
+    id "com.jfrog.bintray" version "1.7"
+}
+apply plugin: 'maven'
+apply plugin: 'maven-publish'
 
-/************************************************************
- * ALL-PROJECT CONFIGURATION
- ************************************************************/
-// This configuration section applies to ALL gradle projects
+/**
+ * This configuration section applies to ALL gradle projects
+ */
 subprojects {
-	// all projects are written in groovy; thus we all need groovy
-	apply plugin: 'groovy'
+    // all projects are written in groovy; thus we all need groovy
+    apply plugin: 'groovy'
 
-	repositories {
-		mavenCentral()
-		jcenter()
-	}
+    repositories {
+        mavenCentral()
+        jcenter()
+    }
 
-	dependencies {
-		compile 'org.codehaus.groovy:groovy-all:2.4.5'
+    dependencies {
+        compile 'org.codehaus.groovy:groovy-all:2.4.5'
 
-		// furthermore, we want jUnit to be loaded as that's what we use for unit tests everywhere
-		testCompile 'junit:junit:4.11'
-	}
+        // furthermore, we want jUnit to be loaded as that's what we use for unit tests everywhere
+        testCompile 'junit:junit:4.11'
+    }
 
-	// Configuration of unit testing
-	test {
-		testLogging {
-			// we want to see the test results in all cases, not just in failure cases.
-			events "passed", "skipped", "failed"
-			// furthermore, we want to see all things which are "println"ed from the tests as well.
-			showStandardStreams = true
-		}
-	}
+    // Configuration of unit testing
+    test {
+        testLogging {
+            // we want to see the test results in all cases, not just in failure cases.
+            events "passed", "skipped", "failed"
+            // furthermore, we want to see all things which are "println"ed from the tests as well.
+            showStandardStreams = true
+        }
+    }
 }
 
 task wrapper(type: Wrapper) {
-	gradleVersion = '2.2'
+    gradleVersion = '2.2'
+}
+
+/**
+ * publish maven artifacts on bintray
+ */
+def _version = "0.1"
+publishing {
+    publications {
+        groovyrunner(MavenPublication) {
+            artifacts = [
+               "groovyrunner/build/libs/groovyrunner.jar"
+            ]
+            groupId 'de.sandstormmedia.groovy-development-cli'
+            artifactId 'groovyrunner'
+            version _version
+        }
+        dependencyInjection(MavenPublication) {
+            artifacts = [
+               "dependency-injection/build/libs/dependency-injection.jar",
+            ]
+            groupId 'de.sandstormmedia.groovy-development-cli'
+            artifactId 'dependency-injection'
+            version _version
+        }
+    }
+}
+bintray {
+    user = System.getenv('BINTRAY_USER')
+    key = System.getenv('BINTRAY_KEY')
+    dryRun = false
+    publish = true
+    override = false
+
+    publications = ['groovyrunner', 'dependencyInjection']
+    pkg {
+        repo = 'maven'
+        name = 'groovy-development-cli'
+        desc = 'Construction Kit for a custom CLI in Groovy projects and hit-reloads of Groovy Code changes'
+        websiteUrl = 'https://github.com/sandstorm/groovy-development-cli'
+        licenses = ['MIT']
+        vcsUrl = 'https://github.com/sandstorm/groovy-development-cli.git'
+        labels = ['java', 'groovy', 'dev', 'development', 'cli', 'tool', 'dependency', 'injection']
+        publicDownloadNumbers = true
+
+        version {
+            name = _version
+            desc = 'First publish'
+            released = new Date()
+            vcsTag = _version
+        }
+    }
 }

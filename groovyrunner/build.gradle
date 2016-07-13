@@ -1,4 +1,4 @@
 dependencies {
-	compile project(':dependency-injection')
-	compile 'junit:junit:4.11'
+    compile project(':dependency-injection')
+    compile 'junit:junit:4.11'
 }
