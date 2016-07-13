@@ -1,0 +1,35 @@
+
+/************************************************************
+ * ALL-PROJECT CONFIGURATION
+ ************************************************************/
+// This configuration section applies to ALL gradle projects
+subprojects {
+	// all projects are written in groovy; thus we all need groovy
+	apply plugin: 'groovy'
+
+	repositories {
+		mavenCentral()
+		jcenter()
+	}
+
+	dependencies {
+		compile 'org.codehaus.groovy:groovy-all:2.4.5'
+
+		// furthermore, we want jUnit to be loaded as that's what we use for unit tests everywhere
+		testCompile 'junit:junit:4.11'
+	}
+
+	// Configuration of unit testing
+	test {
+		testLogging {
+			// we want to see the test results in all cases, not just in failure cases.
+			events "passed", "skipped", "failed"
+			// furthermore, we want to see all things which are "println"ed from the tests as well.
+			showStandardStreams = true
+		}
+	}
+}
+
+task wrapper(type: Wrapper) {
+	gradleVersion = '2.2'
+}
