@@ -1,6 +1,10 @@
 # Groovy Development CLI
 
-TODO
+The *groovyrunner* is the library you can build your own CLI tool with. It is not executable: it is a library.
+
+## Hello World
+
+We launched an example project to show how to build a custom CLI: [github.com/sandstorm/groovy-development-cli-hello-world]()
 
 
 # Dependency Injection
@@ -23,3 +27,11 @@ class ClassA {
 class SingletonC {
 }
 ```
+
+# External Documentation
+
+## Artifact Publication via Bintray
+
+bintray.com/
+github.com/bintray/gradle-bintray-plugin
+github.com/budjb/http-requests
