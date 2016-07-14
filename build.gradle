@@ -6,7 +6,7 @@ plugins {
  * This configuration section applies to ALL gradle projects
  */
 subprojects {
-    apply plugin: 'groovy'
+    apply plugin: "groovy"
 
     repositories {
         mavenCentral()
@@ -14,10 +14,10 @@ subprojects {
     }
 
     dependencies {
-        compile 'org.codehaus.groovy:groovy-all:2.4.5'
+        compile "org.codehaus.groovy:groovy-all:2.4.5"
 
-        // furthermore, we want jUnit to be loaded as that's what we use for unit tests everywhere
-        testCompile 'junit:junit:4.11'
+        // furthermore, we want jUnit to be loaded as that"s what we use for unit tests everywhere
+        testCompile "junit:junit:4.11"
     }
 
     // Configuration of unit testing
@@ -36,6 +36,5 @@ task bintrayUpload(overwrite: true) {
 }
 
 task wrapper(type: Wrapper) {
-    // TODO: update !!!
-    gradleVersion = '2.2'
+    gradleVersion = "2.14"
 }
