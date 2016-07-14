@@ -1,0 +1,80 @@
+apply plugin: "maven-publish"
+apply plugin: "com.jfrog.bintray"
+
+task sourcesJar(type: Jar, dependsOn: classes) {
+    classifier = "sources"
+    from sourceSets.main.allSource
+}
+
+task javadocJar(type: Jar, dependsOn: javadoc) {
+    classifier = "javadoc"
+    from javadoc.destinationDir
+}
+
+artifacts {
+    archives sourcesJar
+    archives javadocJar
+}
+
+publishing {
+    publications {
+        maven(MavenPublication) {
+            groupId "de.sandstormmedia.${rootProject.name}"
+            artifactId project.name
+            version _version
+
+            from components.java
+            artifact sourcesJar {
+                classifier "sources"
+            }
+            artifact javadocJar {
+                classifier "javadoc"
+            }
+
+            pom.withXml {
+                asNode().children().last() + {
+                    def builder = delegate
+
+                    builder.name project.name
+                    builder.description projectDescription
+                    builder.url "https://github.com/budjb/http-requests"
+
+                    builder.licenses {
+                        builder.license {
+                            builder.name "The MIT License (MIT)"
+                            builder.url "https://opensource.org/licenses/MIT"
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+bintray {
+    user = System.getenv("BINTRAY_USER")
+    key = System.getenv("BINTRAY_KEY")
+    publications = ["maven"]
+
+    dryRun = false
+    publish = true
+    override = false
+
+    pkg {
+        name = project.name
+        desc = projectDescription
+
+        repo = "maven"
+        websiteUrl = "github.com/sandstorm/groovy-development-cli"
+        licenses = ["MIT"]
+        vcsUrl = "https://github.com/sandstorm/groovy-development-cli.git"
+        labels = ["java", "groovy", "dev", "development", "cli", "tool", "dependency", "injection"]
+        publicDownloadNumbers = true
+
+        version {
+            name = _version
+            vcsTag = _version
+            released = new Date()
+        }
+    }
+}

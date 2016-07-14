@@ -1,13 +1,11 @@
 plugins {
     id "com.jfrog.bintray" version "1.7"
 }
-apply plugin: 'maven-publish'
 
 /**
  * This configuration section applies to ALL gradle projects
  */
 subprojects {
-    // all projects are written in groovy; thus we all need groovy
     apply plugin: 'groovy'
 
     repositories {
@@ -33,57 +31,11 @@ subprojects {
     }
 }
 
+task bintrayUpload(overwrite: true) {
+    // Nothing to do here since we only publish sub projects
+}
+
 task wrapper(type: Wrapper) {
+    // TODO: update !!!
     gradleVersion = '2.2'
-}
-
-/**
- * publish maven artifacts on bintray
- */
-def _version = "0.1"
-publishing {
-    publications {
-        groovyrunner(MavenPublication) {
-            artifacts = [
-               "groovyrunner/build/libs/groovyrunner.jar"
-            ]
-            groupId 'de.sandstormmedia.groovy-development-cli'
-            artifactId 'groovyrunner'
-            version _version
-        }
-        dependencyInjection(MavenPublication) {
-            artifacts = [
-               "dependency-injection/build/libs/dependency-injection.jar",
-            ]
-            groupId 'de.sandstormmedia.groovy-development-cli'
-            artifactId 'dependency-injection'
-            version _version
-        }
-    }
-}
-bintray {
-    user = System.getenv('BINTRAY_USER')
-    key = System.getenv('BINTRAY_KEY')
-    dryRun = false
-    publish = true
-    override = false
-
-    publications = ['groovyrunner', 'dependencyInjection']
-    pkg {
-        repo = 'maven'
-        name = 'groovy-development-cli'
-        desc = 'Construction Kit for a custom CLI in Groovy projects and hit-reloads of Groovy Code changes'
-        websiteUrl = 'https://github.com/sandstorm/groovy-development-cli'
-        licenses = ['MIT']
-        vcsUrl = 'https://github.com/sandstorm/groovy-development-cli.git'
-        labels = ['java', 'groovy', 'dev', 'development', 'cli', 'tool', 'dependency', 'injection']
-        publicDownloadNumbers = true
-
-        version {
-            name = _version
-            desc = 'First publish'
-            released = new Date()
-            vcsTag = _version
-        }
-    }
 }

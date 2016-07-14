@@ -1,8 +1,8 @@
 .gradle/
 dependency-injection/build/
-groovyrunner/build/
+groovy-runner/build/
 .idea/
 dependency-injection/dependency-injection.iml
 groovy-development-cli.iml
-groovyrunner/groovyrunner.iml
+groovy-runner/groovy-runner.iml
 build/

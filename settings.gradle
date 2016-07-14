@@ -1,4 +1,4 @@
-rootProject.name = 'groovy-development-cli'
+rootProject.name = "groovy-development-cli"
 
-include 'dependency-injection'
-include 'groovyrunner'
+include "dependency-injection"
+include "groovy-runner"
