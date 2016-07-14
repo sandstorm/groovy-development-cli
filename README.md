@@ -24,7 +24,7 @@ The *groovy-runner* is the library you can build your own CLI tool with. It is n
 
 We launched an example project to show how to build a custom CLI.
 
-* [github.com/sandstorm/groovy-development-cli-hello-world]()
+* [github.com/sandstorm/groovy-development-cli-hello-world](https://github.com/sandstorm/groovy-development-cli-hello-world)
 
 
 ## Dependency Injection
@@ -52,8 +52,8 @@ class SingletonC {
 
 ## Artifact Publication via Bintray
 
-We use [bintray.com]() to publish the maven artifacts.
-If you are interested, it is done via their [github.com/bintray/gradle-bintray-plugin]().
+We use [bintray.com](http://bintray.com) to publish the maven artifacts.
+If you are interested, it is done via their [github.com/bintray/gradle-bintray-plugin](https://github.com/bintray/gradle-bintray-plugin).
 
 Since publishing in a multi publishing environment is hardly covered by the documentation,
-  we peeked at [github.com/budjb/http-requests]().
+  we peeked at [github.com/budjb/http-requests](https://github.com/budjb/http-requests).
